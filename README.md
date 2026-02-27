@@ -7,6 +7,11 @@ SlackのSocket Modeを利用するため、Macのポート開放なしでセキ�
 
 Slack上でBot宛てにメンション付きでメッセージを送ると、その内容がそのままプロンプトとしてローカルの Gemini CLI に送信され、結果がSlackに返ってきます。
 
+### 対象リポジトリの指定
+複数のリポジトリを操作したい場合は、メッセージの先頭に `in <リポジトリ名>` を付けることで実行ディレクトリを切り替えられます。
+*   例: `@bot in MyApp index.htmlの背景色を赤に変えて`
+*   デフォルトの検索ベースディレクトリは `~/Desktop/develop` です（`.env`の `TARGET_BASE_DIR` で変更可能）。
+
 ## セットアップ
 
 ### 1. Slack Appの作成
@@ -20,6 +25,7 @@ Slack上でBot宛てにメンション付きでメッセージを送ると、そ
 ```
 SLACK_BOT_TOKEN=xoxb-your-bot-token
 SLACK_APP_TOKEN=xapp-your-app-token
+TARGET_BASE_DIR=~/Desktop/develop  # 任意（対象リポジトリのベースディレクトリ）
 ```
 
 ### 3. 起動
