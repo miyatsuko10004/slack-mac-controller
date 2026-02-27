@@ -35,8 +35,10 @@ def handle_app_mentions(event, say):
             return
             
         say(f"🤖 Gemini CLIに問い合わせ中...\\nプロンプト: `{prompt}`")
-        # Run gemini cli with the prompt. Make sure gemini cli is installed and in PATH.
-        out = run_command(f'gemini "{prompt}"')
+        # Run gemini cli with the prompt securely
+        import shlex
+        safe_prompt = shlex.quote(prompt)
+        out = run_command(f'gemini {safe_prompt}')
         say(f"結果:\\n```\\n{out}\\n```")
         
     elif "system" in text:
