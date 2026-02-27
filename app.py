@@ -39,8 +39,21 @@ def handle_app_mentions(event, say):
         out = run_command(f'gemini "{prompt}"')
         say(f"結果:\\n```\\n{out}\\n```")
         
+    elif "system" in text:
+        subcommand = text.split("system", 1)[-1].strip()
+        if subcommand == "info":
+            say("📊 Macのシステム情報を取得中...")
+            out = run_command("top -l 1 -n 0 | head -n 10")
+            say(f"システム情報:\\n```\\n{out}\\n```")
+        elif subcommand == "sleep":
+            say("💤 Macをスリープ状態にします...")
+            run_command("pmset sleepnow")
+            say("スリープコマンドを実行しました。")
+        else:
+            say("不明なsystemサブコマンドです。利用可能なサブコマンド: `info`, `sleep`")
+            
     else:
-        say("利用可能なコマンド: `antigravity`, `gemini <prompt>`")
+        say("利用可能なコマンド: `antigravity`, `gemini <prompt>`, `system <info|sleep>`")
 
 if __name__ == "__main__":
     app_token = os.environ.get("SLACK_APP_TOKEN")
